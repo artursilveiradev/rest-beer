@@ -29,6 +29,11 @@ type Repository interface {
 	Writer
 }
 
+// Beer entity use cases
+type UseCase interface {
+	Store(b *Beer) (*Beer, error)
+}
+
 // Beer types
 const (
 	TypeAle   BeerType = 1
