@@ -1,5 +1,7 @@
 package beer
 
+import "context"
+
 // Beer entity id
 type ID int
 
@@ -15,6 +17,16 @@ type Beer struct {
 	Name  string
 	Type  BeerType
 	Style BeerStyle
+}
+
+// Repository write operations
+type Writer interface {
+	Store(ctx context.Context, b *Beer) (*Beer, error)
+}
+
+// Repository operations
+type Repository interface {
+	Writer
 }
 
 // Beer types
