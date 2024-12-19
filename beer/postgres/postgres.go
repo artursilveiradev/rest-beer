@@ -26,3 +26,12 @@ func (r *Postgres) Store(ctx context.Context, b *beer.Beer) (*beer.Beer, error) 
 		b.Name, b.Type, b.Style).Scan(&b.ID, &b.Name, &b.Type, &b.Style)
 	return b, err
 }
+
+// Get a beer
+func (r *Postgres) Get(ctx context.Context, id beer.ID) (*beer.Beer, error) {
+	var beer beer.Beer
+	err := r.conn.QueryRow(ctx,
+		"SELECT id, name, type, style FROM beer WHERE id = $1",
+		id).Scan(&beer.ID, &beer.Name, &beer.Type, &beer.Style)
+	return &beer, err
+}

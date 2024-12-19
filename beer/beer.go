@@ -24,9 +24,15 @@ type Writer interface {
 	Store(ctx context.Context, b *Beer) (*Beer, error)
 }
 
+// Repository read operations
+type Reader interface {
+	Get(ctx context.Context, id ID) (*Beer, error)
+}
+
 // Repository operations
 type Repository interface {
 	Writer
+	Reader
 }
 
 // Beer entity use cases
