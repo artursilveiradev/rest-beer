@@ -31,3 +31,24 @@ func TestServiceStore(t *testing.T) {
 	assert.Equal(t, b.Type, beer.TypeLager)
 	assert.Equal(t, b.Style, beer.StylePale)
 }
+
+func TestServiceGet(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	r := mocks.NewMockRepository(ctrl)
+	b := &beer.Beer{
+		ID:    beer.ID(1),
+		Name:  "Heineken",
+		Type:  beer.TypeLager,
+		Style: beer.StylePale,
+	}
+	r.EXPECT().Get(gomock.Any(), gomock.Any()).Return(b, nil)
+	s := beer.NewService(r)
+
+	b, err := s.Get(b.ID)
+
+	assert.NoError(t, err)
+	assert.Equal(t, b.ID, beer.ID(1))
+	assert.Equal(t, b.Name, "Heineken")
+	assert.Equal(t, b.Type, beer.TypeLager)
+	assert.Equal(t, b.Style, beer.StylePale)
+}

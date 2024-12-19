@@ -26,3 +26,13 @@ func (s *Service) Store(b *Beer) (*Beer, error) {
 	}
 	return b, nil
 }
+
+// Get a beer
+func (s *Service) Get(id ID) (*Beer, error) {
+	ctx := context.Background()
+	b, err := s.repository.Get(ctx, id)
+	if err != nil {
+		return nil, fmt.Errorf("Get repository error: %w", err)
+	}
+	return b, nil
+}
