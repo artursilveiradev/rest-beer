@@ -6,3 +6,7 @@ env:
 	cp .env.example .env
 run:
 	go run cmd/api/main.go
+mod:
+	go mod download
+build: mod
+	go build -o bin/rest-beer cmd/api/main.go
