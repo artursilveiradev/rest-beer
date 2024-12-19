@@ -40,6 +40,7 @@ type Repository interface {
 type UseCase interface {
 	Store(b *Beer) (*Beer, error)
 	Get(id ID) (*Beer, error)
+	GetAll() ([]*Beer, error)
 }
 
 // Beer types

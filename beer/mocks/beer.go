@@ -218,6 +218,21 @@ func (mr *MockUseCaseMockRecorder) Get(id any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Get", reflect.TypeOf((*MockUseCase)(nil).Get), id)
 }
 
+// GetAll mocks base method.
+func (m *MockUseCase) GetAll() ([]*beer.Beer, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "GetAll")
+	ret0, _ := ret[0].([]*beer.Beer)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// GetAll indicates an expected call of GetAll.
+func (mr *MockUseCaseMockRecorder) GetAll() *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAll", reflect.TypeOf((*MockUseCase)(nil).GetAll))
+}
+
 // Store mocks base method.
 func (m *MockUseCase) Store(b *beer.Beer) (*beer.Beer, error) {
 	m.ctrl.T.Helper()

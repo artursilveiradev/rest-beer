@@ -36,3 +36,13 @@ func (s *Service) Get(id ID) (*Beer, error) {
 	}
 	return b, nil
 }
+
+// Get all beers
+func (s *Service) GetAll() ([]*Beer, error) {
+	ctx := context.Background()
+	b, err := s.repository.GetAll(ctx)
+	if err != nil {
+		return nil, fmt.Errorf("GetAll repository error: %w", err)
+	}
+	return b, nil
+}
