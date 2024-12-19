@@ -117,3 +117,40 @@ func TestGetBeer(t *testing.T) {
 		assert.Equal(t, string("{\"message\":\"Beer not found\",\"status\":404}"), w.Body.String())
 	})
 }
+
+func TestGetAllBeers(t *testing.T) {
+	t.Run("StatusOK", func(t *testing.T) {
+		ctrl := gomock.NewController(t)
+		s := mocks.NewMockUseCase(ctrl)
+		s.EXPECT().GetAll().Return([]*beer.Beer{
+			{
+				ID:    beer.ID(1),
+				Name:  "Heineken",
+				Type:  beer.TypeLager,
+				Style: beer.StylePale,
+			},
+		}, nil)
+		router := gin.Default()
+		router = g.Handlers(router, s)
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest("GET", "/v1/beer", nil)
+		router.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusOK, w.Code)
+		assert.Equal(t, string(
+			"{\"data\":[{\"id\":1,\"name\":\"Heineken\",\"style\":\"Pale\",\"type\":\"Lager\"}],\"message\":\"Beers found\",\"status\":200}",
+		), w.Body.String())
+	})
+
+	t.Run("StatusInternalServerError", func(t *testing.T) {
+		ctrl := gomock.NewController(t)
+		s := mocks.NewMockUseCase(ctrl)
+		s.EXPECT().GetAll().Return(nil, errors.New("internal server error"))
+		router := gin.Default()
+		router = g.Handlers(router, s)
+		w := httptest.NewRecorder()
+		req, _ := http.NewRequest("GET", "/v1/beer", nil)
+		router.ServeHTTP(w, req)
+		assert.Equal(t, http.StatusInternalServerError, w.Code)
+		assert.Equal(t, string("{\"message\":\"Internal Server Error\",\"status\":500}"), w.Body.String())
+	})
+}

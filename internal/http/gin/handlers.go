@@ -12,6 +12,7 @@ import (
 func Handlers(r *gin.Engine, service beer.UseCase) *gin.Engine {
 	r.POST("/v1/beer", storeBeer(service))
 	r.GET("/v1/beer/:id", getBeer(service))
+	r.GET("/v1/beer", getAllBeers(service))
 	return r
 }
 
@@ -73,6 +74,34 @@ func getBeer(service beer.UseCase) gin.HandlerFunc {
 				"type":  b.Type.String(),
 				"style": b.Style.String(),
 			},
+		})
+	}
+}
+
+// Get all beers API handler
+func getAllBeers(service beer.UseCase) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		bs, err := service.GetAll()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"status":  http.StatusInternalServerError,
+				"message": "Internal Server Error",
+			})
+			return
+		}
+		data := make([]gin.H, 0, len(bs))
+		for _, b := range bs {
+			data = append(data, gin.H{
+				"id":    b.ID,
+				"name":  b.Name,
+				"type":  b.Type.String(),
+				"style": b.Style.String(),
+			})
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"status":  http.StatusOK,
+			"message": "Beers found",
+			"data":    data,
 		})
 	}
 }
