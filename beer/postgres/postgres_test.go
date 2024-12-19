@@ -76,6 +76,24 @@ func (s *PostgresRepositoryTestSuite) TestGetBeer() {
 	assert.Equal(t, b.Style, beer.StylePale)
 }
 
+func (s *PostgresRepositoryTestSuite) TestGetAllBeers() {
+	t := s.T()
+	s.repository.Store(s.ctx, &beer.Beer{
+		Name:  "Heineken",
+		Type:  beer.TypeLager,
+		Style: beer.StylePale,
+	})
+
+	bs, err := s.repository.GetAll(s.ctx)
+
+	assert.NoError(t, err)
+	assert.Equal(t, len(bs), 1)
+	assert.NotZero(t, bs[0].ID)
+	assert.Equal(t, bs[0].Name, "Heineken")
+	assert.Equal(t, bs[0].Type, beer.TypeLager)
+	assert.Equal(t, bs[0].Style, beer.StylePale)
+}
+
 func TestPostgresRepositoryTestSuite(t *testing.T) {
 	suite.Run(t, new(PostgresRepositoryTestSuite))
 }

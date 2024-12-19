@@ -27,6 +27,7 @@ type Writer interface {
 // Repository read operations
 type Reader interface {
 	Get(ctx context.Context, id ID) (*Beer, error)
+	GetAll(ctx context.Context) ([]*Beer, error)
 }
 
 // Repository operations

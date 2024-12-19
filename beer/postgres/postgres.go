@@ -35,3 +35,25 @@ func (r *Postgres) Get(ctx context.Context, id beer.ID) (*beer.Beer, error) {
 		id).Scan(&beer.ID, &beer.Name, &beer.Type, &beer.Style)
 	return &beer, err
 }
+
+// Get all beers
+func (r *Postgres) GetAll(ctx context.Context) ([]*beer.Beer, error) {
+	rows, err := r.conn.Query(ctx, "SELECT id, name, type, style FROM beer")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var bs []*beer.Beer
+	for rows.Next() {
+		var beer beer.Beer
+		err := rows.Scan(&beer.ID, &beer.Name, &beer.Type, &beer.Style)
+		if err != nil {
+			return nil, err
+		}
+		bs = append(bs, &beer)
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return bs, err
+}
