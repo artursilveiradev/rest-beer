@@ -38,7 +38,7 @@ func TestStoreBeer(t *testing.T) {
 			Style: beer.StylePale,
 		}
 		beerJson, _ := json.Marshal(beer)
-		req, _ := http.NewRequest("POST", "/v1/beer", strings.NewReader(string(beerJson)))
+		req, _ := http.NewRequest("POST", "/v1/beers", strings.NewReader(string(beerJson)))
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusCreated, w.Code)
 		assert.Equal(t, string(
@@ -59,7 +59,7 @@ func TestStoreBeer(t *testing.T) {
 			Style: beer.StylePale,
 		}
 		beerJson, _ := json.Marshal(beer)
-		req, _ := http.NewRequest("POST", "/v1/beer", strings.NewReader(string(beerJson)))
+		req, _ := http.NewRequest("POST", "/v1/beers", strings.NewReader(string(beerJson)))
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusInternalServerError, w.Code)
 		assert.Equal(t, string("{\"message\":\"Internal Server Error\",\"status\":500}"), w.Body.String())
@@ -79,7 +79,7 @@ func TestGetBeer(t *testing.T) {
 		router := gin.Default()
 		router = g.Handlers(router, s)
 		w := httptest.NewRecorder()
-		url := fmt.Sprintf("/v1/beer/%s", "1")
+		url := fmt.Sprintf("/v1/beers/%s", "1")
 		req, _ := http.NewRequest("GET", url, nil)
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusOK, w.Code)
@@ -94,7 +94,7 @@ func TestGetBeer(t *testing.T) {
 		router := gin.Default()
 		router = g.Handlers(router, s)
 		w := httptest.NewRecorder()
-		url := fmt.Sprintf("/v1/beer/%s", "foo")
+		url := fmt.Sprintf("/v1/beers/%s", "foo")
 		req, _ := http.NewRequest("GET", url, nil)
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusBadRequest, w.Code)
@@ -110,7 +110,7 @@ func TestGetBeer(t *testing.T) {
 		router := gin.Default()
 		router = g.Handlers(router, s)
 		w := httptest.NewRecorder()
-		url := fmt.Sprintf("/v1/beer/%s", "1")
+		url := fmt.Sprintf("/v1/beers/%s", "1")
 		req, _ := http.NewRequest("GET", url, nil)
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusNotFound, w.Code)
@@ -133,7 +133,7 @@ func TestGetAllBeers(t *testing.T) {
 		router := gin.Default()
 		router = g.Handlers(router, s)
 		w := httptest.NewRecorder()
-		req, _ := http.NewRequest("GET", "/v1/beer", nil)
+		req, _ := http.NewRequest("GET", "/v1/beers", nil)
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusOK, w.Code)
 		assert.Equal(t, string(
@@ -148,7 +148,7 @@ func TestGetAllBeers(t *testing.T) {
 		router := gin.Default()
 		router = g.Handlers(router, s)
 		w := httptest.NewRecorder()
-		req, _ := http.NewRequest("GET", "/v1/beer", nil)
+		req, _ := http.NewRequest("GET", "/v1/beers", nil)
 		router.ServeHTTP(w, req)
 		assert.Equal(t, http.StatusInternalServerError, w.Code)
 		assert.Equal(t, string("{\"message\":\"Internal Server Error\",\"status\":500}"), w.Body.String())

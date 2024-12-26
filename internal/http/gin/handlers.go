@@ -10,9 +10,9 @@ import (
 
 // Gin handlers
 func Handlers(r *gin.Engine, service beer.UseCase) *gin.Engine {
-	r.POST("/v1/beer", storeBeer(service))
-	r.GET("/v1/beer/:id", getBeer(service))
-	r.GET("/v1/beer", getAllBeers(service))
+	r.POST("/v1/beers", storeBeer(service))
+	r.GET("/v1/beers/:id", getBeer(service))
+	r.GET("/v1/beers", getAllBeers(service))
 	return r
 }
 

@@ -8,7 +8,7 @@ A Golang REST API sample
 
 ### Store beer
 ```
-curl -X "POST" "http://localhost:8080/v1/beer" \
+curl -X "POST" "http://localhost:8080/v1/beers" \
      -H 'Content-Type: application/json' \
      -H 'Accept: application/json' \
      -d $'{
@@ -20,14 +20,14 @@ curl -X "POST" "http://localhost:8080/v1/beer" \
 
 ### Show beer
 ```
-curl "http://localhost:8080/v1/beer/1" \
+curl "http://localhost:8080/v1/beers/1" \
      -H 'Content-Type: application/json' \
      -H 'Accept: application/json'
 ```
 
 ### Show beers
 ```
-curl "http://localhost:8080/v1/beer" \
+curl "http://localhost:8080/v1/beers" \
      -H 'Content-Type: application/json' \
      -H 'Accept: application/json'
 ```
