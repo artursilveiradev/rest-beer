@@ -35,6 +35,12 @@ func (r *Postgres) Update(ctx context.Context, b *beer.Beer) (*beer.Beer, error)
 	return b, err
 }
 
+// Remove a beer
+func (r *Postgres) Remove(ctx context.Context, id beer.ID) error {
+	_, err := r.conn.Exec(ctx, "DELETE FROM beer WHERE id = $1", id)
+	return err
+}
+
 // Get a beer
 func (r *Postgres) Get(ctx context.Context, id beer.ID) (*beer.Beer, error) {
 	var beer beer.Beer

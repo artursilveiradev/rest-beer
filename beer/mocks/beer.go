@@ -41,6 +41,20 @@ func (m *MockWriter) EXPECT() *MockWriterMockRecorder {
 	return m.recorder
 }
 
+// Remove mocks base method.
+func (m *MockWriter) Remove(ctx context.Context, id beer.ID) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Remove", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Remove indicates an expected call of Remove.
+func (mr *MockWriterMockRecorder) Remove(ctx, id any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Remove", reflect.TypeOf((*MockWriter)(nil).Remove), ctx, id)
+}
+
 // Store mocks base method.
 func (m *MockWriter) Store(ctx context.Context, b *beer.Beer) (*beer.Beer, error) {
 	m.ctrl.T.Helper()
@@ -177,6 +191,20 @@ func (m *MockRepository) GetAll(ctx context.Context) ([]*beer.Beer, error) {
 func (mr *MockRepositoryMockRecorder) GetAll(ctx any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAll", reflect.TypeOf((*MockRepository)(nil).GetAll), ctx)
+}
+
+// Remove mocks base method.
+func (m *MockRepository) Remove(ctx context.Context, id beer.ID) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Remove", ctx, id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Remove indicates an expected call of Remove.
+func (mr *MockRepositoryMockRecorder) Remove(ctx, id any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Remove", reflect.TypeOf((*MockRepository)(nil).Remove), ctx, id)
 }
 
 // Store mocks base method.

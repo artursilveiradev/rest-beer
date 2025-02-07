@@ -77,6 +77,19 @@ func (s *PostgresRepositoryTestSuite) TestUpdateBeer() {
 	assert.Equal(t, b.Style, beer.StylePale)
 }
 
+func (s *PostgresRepositoryTestSuite) TestRemoveBeer() {
+	t := s.T()
+	b, _ := s.repository.Store(s.ctx, &beer.Beer{
+		Name:  "Heineken",
+		Type:  beer.TypeLager,
+		Style: beer.StylePale,
+	})
+
+	err := s.repository.Remove(s.ctx, b.ID)
+
+	assert.NoError(t, err)
+}
+
 func (s *PostgresRepositoryTestSuite) TestGetBeer() {
 	t := s.T()
 	b, _ := s.repository.Store(s.ctx, &beer.Beer{
