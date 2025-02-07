@@ -12,6 +12,7 @@ import (
 func Handlers(r *gin.Engine, service beer.UseCase) *gin.Engine {
 	r.POST("/v1/beers", storeBeer(service))
 	r.PATCH("/v1/beers/:id", updateBeer(service))
+	r.DELETE("/v1/beers/:id", removeBeer(service))
 	r.GET("/v1/beers/:id", getBeer(service))
 	r.GET("/v1/beers", getAllBeers(service))
 	return r
@@ -87,6 +88,39 @@ func updateBeer(service beer.UseCase) gin.HandlerFunc {
 				"style": b.Style.String(),
 			},
 		})
+	}
+}
+
+// Remove beer API handler
+func removeBeer(service beer.UseCase) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		id := c.Param("id")
+		parsedId, err := strconv.Atoi(id)
+		if err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{
+				"status":  http.StatusBadRequest,
+				"message": "Invalid param",
+				"error":   err.Error(),
+			})
+			return
+		}
+		b, err := service.Get(beer.ID(parsedId))
+		if err != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"status":  http.StatusNotFound,
+				"message": "Beer not found",
+			})
+			return
+		}
+		err = service.Remove(b.ID)
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{
+				"status":  http.StatusInternalServerError,
+				"message": "Internal Server Error",
+			})
+			return
+		}
+		c.Status(http.StatusNoContent)
 	}
 }
 
