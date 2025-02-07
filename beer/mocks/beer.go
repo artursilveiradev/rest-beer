@@ -291,6 +291,20 @@ func (mr *MockUseCaseMockRecorder) GetAll() *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAll", reflect.TypeOf((*MockUseCase)(nil).GetAll))
 }
 
+// Remove mocks base method.
+func (m *MockUseCase) Remove(id beer.ID) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Remove", id)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Remove indicates an expected call of Remove.
+func (mr *MockUseCaseMockRecorder) Remove(id any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Remove", reflect.TypeOf((*MockUseCase)(nil).Remove), id)
+}
+
 // Store mocks base method.
 func (m *MockUseCase) Store(b *beer.Beer) (*beer.Beer, error) {
 	m.ctrl.T.Helper()

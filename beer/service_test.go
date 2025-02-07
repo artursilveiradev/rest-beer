@@ -53,6 +53,17 @@ func TestServiceUpdate(t *testing.T) {
 	assert.Equal(t, b.Style, beer.StylePale)
 }
 
+func TestServiceRemove(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	r := mocks.NewMockRepository(ctrl)
+	r.EXPECT().Remove(gomock.Any(), gomock.Any()).Return(nil)
+	s := beer.NewService(r)
+
+	err := s.Remove(beer.ID(1))
+
+	assert.NoError(t, err)
+}
+
 func TestServiceGet(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	r := mocks.NewMockRepository(ctrl)

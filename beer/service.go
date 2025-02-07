@@ -37,6 +37,16 @@ func (s *Service) Update(b *Beer) (*Beer, error) {
 	return b, nil
 }
 
+// Remove a beer
+func (s *Service) Remove(id ID) error {
+	ctx := context.Background()
+	err := s.repository.Remove(ctx, id)
+	if err != nil {
+		return fmt.Errorf("Remove repository error: %w", err)
+	}
+	return nil
+}
+
 // Get a beer
 func (s *Service) Get(id ID) (*Beer, error) {
 	ctx := context.Background()
