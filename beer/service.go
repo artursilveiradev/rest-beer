@@ -27,6 +27,16 @@ func (s *Service) Store(b *Beer) (*Beer, error) {
 	return b, nil
 }
 
+// Update a beer
+func (s *Service) Update(b *Beer) (*Beer, error) {
+	ctx := context.Background()
+	b, err := s.repository.Update(ctx, b)
+	if err != nil {
+		return nil, fmt.Errorf("Update repository error: %w", err)
+	}
+	return b, nil
+}
+
 // Get a beer
 func (s *Service) Get(id ID) (*Beer, error) {
 	ctx := context.Background()

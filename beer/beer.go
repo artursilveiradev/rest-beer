@@ -40,6 +40,7 @@ type Repository interface {
 // Beer entity use cases
 type UseCase interface {
 	Store(b *Beer) (*Beer, error)
+	Update(b *Beer) (*Beer, error)
 	Get(id ID) (*Beer, error)
 	GetAll() ([]*Beer, error)
 }
