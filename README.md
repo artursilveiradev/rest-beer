@@ -18,6 +18,21 @@ curl -X "POST" "http://localhost:8080/v1/beers" \
 }'
 ```
 
+### Update beer
+```
+curl -X "PATCH" "http://localhost:8080/v1/beers/1" \
+     -H 'Content-Type: application/json' \
+     -H 'Accept: application/json' \
+     -d $'{
+  "name": "Budweiser"
+}'
+```
+
+### Remove beer
+```
+curl -X "DELETE" "http://localhost:8080/v1/beers/1"
+```
+
 ### Show beer
 ```
 curl "http://localhost:8080/v1/beers/1" \
