@@ -56,6 +56,21 @@ func (mr *MockWriterMockRecorder) Store(ctx, b any) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Store", reflect.TypeOf((*MockWriter)(nil).Store), ctx, b)
 }
 
+// Update mocks base method.
+func (m *MockWriter) Update(ctx context.Context, b *beer.Beer) (*beer.Beer, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Update", ctx, b)
+	ret0, _ := ret[0].(*beer.Beer)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Update indicates an expected call of Update.
+func (mr *MockWriterMockRecorder) Update(ctx, b any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockWriter)(nil).Update), ctx, b)
+}
+
 // MockReader is a mock of Reader interface.
 type MockReader struct {
 	ctrl     *gomock.Controller
@@ -177,6 +192,21 @@ func (m *MockRepository) Store(ctx context.Context, b *beer.Beer) (*beer.Beer, e
 func (mr *MockRepositoryMockRecorder) Store(ctx, b any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Store", reflect.TypeOf((*MockRepository)(nil).Store), ctx, b)
+}
+
+// Update mocks base method.
+func (m *MockRepository) Update(ctx context.Context, b *beer.Beer) (*beer.Beer, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Update", ctx, b)
+	ret0, _ := ret[0].(*beer.Beer)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Update indicates an expected call of Update.
+func (mr *MockRepositoryMockRecorder) Update(ctx, b any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockRepository)(nil).Update), ctx, b)
 }
 
 // MockUseCase is a mock of UseCase interface.

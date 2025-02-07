@@ -27,6 +27,14 @@ func (r *Postgres) Store(ctx context.Context, b *beer.Beer) (*beer.Beer, error) 
 	return b, err
 }
 
+// Update a beer
+func (r *Postgres) Update(ctx context.Context, b *beer.Beer) (*beer.Beer, error) {
+	err := r.conn.QueryRow(ctx,
+		"UPDATE beer SET name = $1, type = $2, style = $3 WHERE id = $4 RETURNING id, name, type, style",
+		b.Name, b.Type, b.Style, b.ID).Scan(&b.ID, &b.Name, &b.Type, &b.Style)
+	return b, err
+}
+
 // Get a beer
 func (r *Postgres) Get(ctx context.Context, id beer.ID) (*beer.Beer, error) {
 	var beer beer.Beer

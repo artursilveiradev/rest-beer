@@ -22,6 +22,7 @@ type Beer struct {
 // Repository write operations
 type Writer interface {
 	Store(ctx context.Context, b *Beer) (*Beer, error)
+	Update(ctx context.Context, b *Beer) (*Beer, error)
 }
 
 // Repository read operations
