@@ -6,7 +6,7 @@ A Golang REST API sample
 
 ## API requests 
 
-### Store beer
+### Create beer
 ```
 curl -X "POST" "http://localhost:8080/v1/beers" \
      -H 'Content-Type: application/json' \
@@ -16,6 +16,20 @@ curl -X "POST" "http://localhost:8080/v1/beers" \
   "type": 2,
   "style": 6
 }'
+```
+
+### Read beer
+```
+curl -X "GET" "http://localhost:8080/v1/beers/1" \
+     -H 'Content-Type: application/json' \
+     -H 'Accept: application/json'
+```
+
+### Read beers
+```
+curl -X "GET" "http://localhost:8080/v1/beers" \
+     -H 'Content-Type: application/json' \
+     -H 'Accept: application/json'
 ```
 
 ### Update beer
@@ -28,21 +42,9 @@ curl -X "PATCH" "http://localhost:8080/v1/beers/1" \
 }'
 ```
 
-### Remove beer
+### Delete beer
 ```
 curl -X "DELETE" "http://localhost:8080/v1/beers/1"
-```
-
-### Show beer
-```
-curl "http://localhost:8080/v1/beers/1" \
-     -H 'Content-Type: application/json' \
-     -H 'Accept: application/json'
-```
-
-### Show beers
-```
-curl "http://localhost:8080/v1/beers" \
      -H 'Content-Type: application/json' \
      -H 'Accept: application/json'
 ```
